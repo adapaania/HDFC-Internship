@@ -159,7 +159,7 @@ These analyses ensured that the model provides **stable and interpretable risk r
 
 ---
 ## 📂 Project Structure
-📂 Project Structure
+📂 Project Structure/
 ├── notebooks/
 │   ├── Monsoon - Enquiry Data.ipynb
 │   ├── Monsoon - Enquiry Data Test.ipynb
