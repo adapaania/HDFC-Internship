@@ -1,175 +1,161 @@
-Credit Risk Modeling & Loan Default Prediction
-📌 Project Overview
 
-This project implements an end-to-end credit risk modeling pipeline to predict borrower loan default risk using customer enquiry behavior and account-level credit data. The work was carried out as part of a Data Science Internship at HDFC Capital Advisors Ltd., focusing on building interpretable and robust models suitable for real-world underwriting decisions.
+# Credit Risk Modeling & Loan Default Prediction
 
-The pipeline covers data ingestion, feature engineering, model training, evaluation, and business validation, following industry-standard practices used in BFSI credit analytics.
+## 📌 Project Overview
 
-🗂️ Data Description
+This project implements an **end-to-end credit risk modeling pipeline** to predict borrower loan default risk using customer enquiry behavior and account-level credit data. The work was carried out as part of a **Data Science Internship at HDFC Capital Advisors Ltd.**, focusing on building interpretable and robust models suitable for real-world underwriting decisions.
+
+The pipeline covers **data ingestion, feature engineering, model training, evaluation, and business validation**, following industry-standard practices used in BFSI credit analytics.
+
+---
+
+## 🗂️ Data Description
 
 The modeling dataset is constructed by integrating multiple borrower-level data sources:
 
-Enquiry Data (JSON)
+* **Enquiry Data (JSON)**
 
-Borrower credit enquiries across different credit types
+  * Borrower credit enquiries across different credit types
+  * Enquiry amounts and timestamps
 
-Enquiry amounts and timestamps
+* **Account Data (CSV)**
 
-Account Data (CSV)
+  * Loan amounts, repayment behavior, delinquencies, and credit types
 
-Loan amounts, repayment behavior, delinquencies, and credit types
+* **Flag Data (CSV)**
 
-Flag Data (CSV)
+  * Binary target variable (`TARGET`):
 
-Binary target variable (TARGET):
+    * `0` → Good Loan
+    * `1` → Bad Loan
 
-0 → Good Loan
+Each borrower is represented by a **single consolidated record (UID-level aggregation)** to support supervised learning.
 
-1 → Bad Loan
+---
 
-Each borrower is represented by a single consolidated record (UID-level aggregation) to support supervised learning.
-
-⚙️ Feature Engineering
+## ⚙️ Feature Engineering
 
 Extensive feature engineering was performed to capture borrower credit behavior:
 
-🔹 Enquiry-Based Features
+### 🔹 Enquiry-Based Features
 
-Total number of enquiries per borrower
+* Total number of enquiries per borrower
+* Unique enquiry types per borrower
+* Time-windowed enquiry counts:
 
-Unique enquiry types per borrower
+  * Last **1, 3, 6, 9, and 12 months**
+* Monetary aggregates per credit type:
 
-Time-windowed enquiry counts:
+  * Mean, median, minimum, maximum, and total enquiry amount
+* First and last enquiry dates per credit type
 
-Last 1, 3, 6, 9, and 12 months
+### 🔹 Account-Level Features
 
-Monetary aggregates per credit type:
+* Loan amount statistics (average, median, min, max)
+* Credit-type–wise total exposure
+* Repayment behavior indicators (on-time payments, delinquencies)
 
-Mean, median, minimum, maximum, and total enquiry amount
+### 🔹 Feature Reduction
 
-First and last enquiry dates per credit type
+* Recursive Feature Elimination (**RFE**) using **LightGBM**
+* Removal of:
 
-🔹 Account-Level Features
+  * High-missing columns
+  * Near-zero variance features
+  * High-cardinality identifiers
 
-Loan amount statistics (average, median, min, max)
+---
 
-Credit-type–wise total exposure
+## 🧪 Exploratory Data Analysis (EDA)
 
-Repayment behavior indicators (on-time payments, delinquencies)
+* Target class distribution (Good vs Bad loans)
+* Enquiry frequency and amount distributions
+* Risk trends across:
 
-🔹 Feature Reduction
+  * Enquiry recency
+  * Loan amount buckets
+  * Credit types
+* Visualizations using **Matplotlib** and **Seaborn**
 
-Recursive Feature Elimination (RFE) using LightGBM
+---
 
-Removal of:
+## 🔄 Preprocessing Pipeline
 
-High-missing columns
+* Train–test alignment to avoid feature mismatch
+* Categorical encoding:
 
-Near-zero variance features
+  * Label Encoding
+  * One-Hot Encoding (via `ColumnTransformer`)
+* Numerical preprocessing:
 
-High-cardinality identifiers
+  * Mean imputation
+  * Min–Max scaling
+* Class imbalance handling using **SMOTE**
 
-🧪 Exploratory Data Analysis (EDA)
+---
 
-Target class distribution (Good vs Bad loans)
-
-Enquiry frequency and amount distributions
-
-Risk trends across:
-
-Enquiry recency
-
-Loan amount buckets
-
-Credit types
-
-Visualizations using Matplotlib and Seaborn
-
-🔄 Preprocessing Pipeline
-
-Train–test alignment to avoid feature mismatch
-
-Categorical encoding:
-
-Label Encoding
-
-One-Hot Encoding (via ColumnTransformer)
-
-Numerical preprocessing:
-
-Mean imputation
-
-Min–Max scaling
-
-Class imbalance handling using SMOTE
-
-🤖 Models Implemented
+## 🤖 Models Implemented
 
 Multiple models were trained and benchmarked:
 
-Logistic Regression (primary model)
+* **Logistic Regression** (primary model)
+* **XGBoost**
+* **LightGBM**
 
-XGBoost
+### Hyperparameter Tuning
 
-LightGBM
+* GridSearchCV with **ROC-AUC** as the optimization metric
 
-Hyperparameter Tuning
+### Final Model Selection
 
-GridSearchCV with ROC-AUC as the optimization metric
+* **Logistic Regression** was selected due to its:
 
-Final Model Selection
+  * Strong balance between **interpretability and performance**
+  * Alignment with credit underwriting and regulatory requirements
 
-Logistic Regression was selected due to its:
+---
 
-Strong balance between interpretability and performance
+## 📊 Model Evaluation
 
-Alignment with credit underwriting and regulatory requirements
+Evaluation followed **industry-standard credit risk metrics**:
 
-📊 Model Evaluation
+* ROC-AUC
+* Gini Coefficient
+* KS Statistic
+* Confusion Matrix
+* Classification Report
 
-Evaluation followed industry-standard credit risk metrics:
+### Business Validation
 
-ROC-AUC
+* **Decile analysis**
+* **Lift and Gains charts**
+* Feature-wise decile plots to assess monotonic risk separation
 
-Gini Coefficient
+These analyses ensured that the model provides **stable and interpretable risk ranking**, suitable for underwriting use cases.
 
-KS Statistic
+---
 
-Confusion Matrix
+## 📈 Key Results
 
-Classification Report
+* Logistic Regression achieved **AUC-ROC ≈ 0.65** on the test set
+* Clear risk separation observed in top deciles
+* Model demonstrated stable performance across train, test, and holdout datasets
 
-Business Validation
+---
 
-Decile analysis
+## 🛠️ Tech Stack
 
-Lift and Gains charts
+* **Programming:** Python
+* **Data Handling:** Pandas, NumPy
+* **Visualization:** Matplotlib, Seaborn
+* **Modeling:** scikit-learn, XGBoost, LightGBM
+* **Imbalance Handling:** imbalanced-learn (SMOTE)
 
-Feature-wise decile plots to assess monotonic risk separation
+---
 
-These analyses ensured that the model provides stable and interpretable risk ranking, suitable for underwriting use cases.
+## 📂 Project Structure
 
-📈 Key Results
-
-Logistic Regression achieved AUC-ROC ≈ 0.65 on the test set
-
-Clear risk separation observed in top deciles
-
-Model demonstrated stable performance across train, test, and holdout datasets
-
-🛠️ Tech Stack
-
-Programming: Python
-
-Data Handling: Pandas, NumPy
-
-Visualization: Matplotlib, Seaborn
-
-Modeling: scikit-learn, XGBoost, LightGBM
-
-Imbalance Handling: imbalanced-learn (SMOTE)
-
-📂 Project Structure
+```
 ├── data/
 │   ├── enquiry_data_train.json
 │   ├── enquiry_data_test.json
@@ -184,3 +170,13 @@ Imbalance Handling: imbalanced-learn (SMOTE)
 ├── df_train.csv
 ├── df_test.csv
 └── README.md
+```
+
+
+---
+
+## 📌 Author
+
+**Aania Adap**
+Data Science | Machine Learning | Credit Risk Analytics
+
