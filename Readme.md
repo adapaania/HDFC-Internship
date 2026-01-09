@@ -174,11 +174,8 @@ These analyses ensured that the model provides **stable and interpretable risk r
 │   └── Monsoon - XGB MODEL.ipynb
 └── Readme.md
 ```
-
 📝 Note:
 - Raw datasets are intentionally NOT included in this repository (confidential).
-- To run the notebooks, place the required files locally (e.g., under a private `data/` folder on your machine)
-  and update file paths accordingly.
 
 
 ---
