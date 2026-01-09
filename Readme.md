@@ -158,8 +158,7 @@ These analyses ensured that the model provides **stable and interpretable risk r
 * **Imbalance Handling:** imbalanced-learn (SMOTE)
 
 ---
-## 📂 Project Structure
-📂 Project Structure/
+📂 Project Structure
 ├── notebooks/
 │   ├── Monsoon - Enquiry Data.ipynb
 │   ├── Monsoon - Enquiry Data Test.ipynb
@@ -171,6 +170,7 @@ These analyses ensured that the model provides **stable and interpretable risk r
 │   ├── Monsoon - LGBM Model.ipynb
 │   └── Monsoon - XGB MODEL.ipynb
 └── Readme.md
+
 
 📝 Note:
 - Raw datasets are intentionally NOT included in this repository (confidential).
