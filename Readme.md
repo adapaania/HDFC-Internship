@@ -160,23 +160,22 @@ These analyses ensured that the model provides **stable and interpretable risk r
 ---
 
 ## 📂 Project Structure
-
-```
-├── data/
-│   ├── enquiry_data_train.json
-│   ├── enquiry_data_test.json
-│   ├── train_flag.csv
-│   └── test_flag.csv
 ├── notebooks/
-│   ├── feature_engineering.ipynb
-│   ├── eda.ipynb
-│   ├── modeling_logistic_regression.ipynb
-│   ├── modeling_xgboost.ipynb
-│   └── modeling_lightgbm.ipynb
-├── df_train.csv
-├── df_test.csv
-└── README.md
-```
+│   ├── Monsoon - Enquiry Data.ipynb
+│   ├── Monsoon - Enquiry Data Test.ipynb
+│   ├── Monsoon - Accounts Data.ipynb
+│   ├── Monsoon - Accounts Data Test.ipynb
+│   ├── Monsoon - Merged Train Set.ipynb
+│   ├── Monsoon - Merged Test Set.ipynb
+│   ├── Monsoon - Logistic Regression Model.ipynb
+│   ├── Monsoon - LGBM Model.ipynb
+│   └── Monsoon - XGB MODEL.ipynb
+└── Readme.md
+
+📝 Note:
+- Raw datasets are intentionally NOT included in this repository (confidential).
+- To run the notebooks, place the required files locally (e.g., under a private `data/` folder on your machine)
+  and update file paths accordingly.
 
 
 ---
