@@ -31,6 +31,12 @@ The modeling dataset is constructed by integrating multiple borrower-level data 
 
 Each borrower is represented by a **single consolidated record (UID-level aggregation)** to support supervised learning.
 
+## Data Privacy Notice
+Due to confidentiality constraints, raw datasets and intermediate data files
+used in this project are not included. The repository focuses on demonstrating
+feature engineering, modeling, and evaluation methodology.
+
+
 ---
 
 ## ⚙️ Feature Engineering
